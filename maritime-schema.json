@@ -1,0 +1,437 @@
+{
+  "logicalModels": [
+  	{
+      "_type": "constant",
+      "desc": "Vessel types",
+      "fqn": "maritime/vessel_type",
+      "values": [
+        "oil_and_chemical_tanker",
+        "gas_tanker",
+        "bulk_carrier",
+        "tug",
+        "na",
+        "general_cargo_ship",
+        "other_tanker",
+        "service_ship",
+        "fishing_vessel",
+        "service_ship",
+        "passenger_ship",
+        "other_tanker",
+        "pleasure_craft",
+        "offshore_vessel",
+        "container_ship",
+        "ro_ro_cargo_ship",
+        "other",
+        "specialized_cargo_ship"
+      ]
+    },
+    {
+      "_type": "definition",
+      "desc": "Port",
+      "fqn": "maritime/port",
+      "properties": [
+        {
+          "id": "name",
+          "traitRef": "string",
+          "required": true
+        },
+        {
+          "id": "locode",
+          "traitRef": "string"
+        },
+        {
+          "id": "order",
+          "traitRef": "integer"
+        },
+        {
+          "id": "country",
+          "traitRef": "string"
+        },
+        {
+          "id": "lon",
+          "traitRef": "double"
+        },
+        {
+          "id": "lat",
+          "traitRef": "double"
+        },
+        {
+          "id": "position",
+          "traitRef": "geo/geo_shape"
+        },
+        {
+          "id":"commodities",
+          "traitRef":"variable_array"
+        }
+      ]
+    },
+    {
+      "_type": "definition",
+      "desc": "Berth",
+      "fqn": "maritime/berth",
+      "properties": [
+        {
+          "id": "name",
+          "traitRef": "string",
+          "required": true
+        },
+        {
+          "id": "port",
+          "traitRef": "maritime/port"
+        },
+        {
+          "id": "lon",
+          "traitRef": "double"
+        },
+        {
+          "id": "lat",
+          "traitRef": "double"
+        },
+        {
+          "id": "position",
+          "traitRef": "geo/geo_shape"
+        },
+        {
+          "id":"commodities",
+          "traitRef":"variable_array"
+        }
+      ]
+    },
+    {
+      "_type":"definition",
+      "desc":"Definition of company",
+      "fqn":"maritime/company",
+      "properties":[
+        {
+          "id":"name",
+          "traitRef": "string"
+        },
+        {
+          "id":"address",
+          "traitRef": "string"
+        },
+        {
+          "id":"name",
+          "traitRef": "string"
+        },
+        {
+          "id":"commodities",
+          "traitRef":"variable_array"
+        }
+      ]
+    },
+    {
+      "_type": "definition",
+      "desc": "Vessel",
+      "fqn": "maritime/vessel",
+      "tags":{
+        "javaClass":"com.mc.analytics.abaci.model.Vessel"
+      },
+      "properties": [
+        {
+          "id": "name",
+          "traitRef": "string"
+        },
+        {
+          "id": "id",
+          "traitRef": "string",
+          "required": true
+        },
+        {
+          "id": "dwt",
+          "traitRef": "float"
+        },
+        {
+          "id": "flag",
+          "traitRef": "string"
+        },
+        {
+          "id": "yearBuild",
+          "traitRef": "integer"
+        },
+        {
+          "id": "vesselType",
+          "traitRef": "const_ref",
+          "refFqn": "maritime/vessel_type"
+        },
+        {
+          "id": "owner",
+          "traitRef": "maritime/company"
+        },
+        {
+          "id": "beneficient",
+           "traitRef": "maritime/company"
+        },
+        {
+          "id": "imo",
+          "traitRef": "integer"
+        },
+        {
+          "id": "mmsi",
+          "traitRef": "integer"
+        }
+      ]
+    },
+    {
+      "_type": "definition",
+      "desc": "PortCall AIS",
+      "fqn": "maritime/portcall_ais",
+      "properties": [
+        {
+          "id": "port",
+          "traitRef": "maritime/port",
+          "required": true
+        },
+        {
+          "id": "time_enter",
+          "traitRef": "datetime",
+          "required": true
+        },
+        {
+          "id": "time_leave",
+          "traitRef": "datetime",
+          "required": true
+        },
+        {
+          "id": "vessel",
+          "traitRef": "maritime/vessel",
+          "required": true
+        }
+      ]
+    },
+    {
+      "_type": "definition",
+      "desc": "PortCall Port Authorities",
+      "fqn": "maritime/portcall_pa",
+      "properties": [
+        {
+          "id": "port",
+          "traitRef": "maritime/port",
+          "required": true
+        },
+        {
+          "id": "time_enter",
+          "traitRef": "datetime",
+          "required": true
+        },
+        {
+          "id": "time_leave",
+          "traitRef": "datetime",
+          "required": true
+        },
+        {
+          "id": "vessel",
+          "traitRef": "maritime/vessel",
+          "required": true
+        }
+      ]
+    },
+    {
+      "_type": "definition",
+      "desc": "PortCall Port Agent",
+      "fqn": "maritime/portcall_ag",
+      "properties": [
+        {
+          "id": "port",
+          "traitRef": "maritime/port",
+          "required": true
+        },
+        {
+          "id": "time_enter",
+          "traitRef": "datetime",
+          "required": true
+        },
+        {
+          "id": "time_leave",
+          "traitRef": "datetime",
+          "required": true
+        },
+        {
+          "id": "vessel",
+          "traitRef": "maritime/vessel",
+          "required": true
+        },
+        {
+          "id":"cargo",
+          "traitRef":"string",
+          "required":"true"
+        }
+      ]
+    },
+    {
+      "_type": "definition",
+      "desc": "PortCall Port Inspection",
+      "fqn": "maritime/portcall_in",
+      "properties": [
+        {
+          "id": "port",
+          "traitRef": "maritime/port",
+          "required": true
+        },
+        {
+          "id": "timestamp",
+          "traitRef": "datetime",
+          "required": true
+        },
+        {
+          "id": "vessel",
+          "traitRef": "maritime/vessel",
+          "required": true
+        }
+      ]
+    },
+    {
+      "_type": "definition",
+      "desc": "PortCall Port Cargo quality inspection",
+      "fqn": "maritime/portcall_in",
+      "properties": [
+        {
+          "id": "port",
+          "traitRef": "maritime/port",
+          "required": true
+        },
+        {
+          "id": "timestamp",
+          "traitRef": "datetime",
+          "required": true
+        },
+        {
+          "id": "vessel",
+          "traitRef": "maritime/vessel",
+          "required": true
+        },
+        {
+          "id": "caargo",
+          "traitRef": "stgring",
+          "required": true
+        }
+      ]
+    },
+    {
+      "_type": "definition",
+      "desc": "Port to port AIS",
+      "fqn": "maritime/leg_ais",
+      "properties": [
+        {
+          "id": "startPort",
+          "traitRef": "maritime/port",
+          "required": true
+        },
+        {
+          "id": "endPort",
+          "traitRef": "maritime/port",
+          "required": true
+        },
+        {
+          "id": "startBerth",
+          "traitRef": "maritime/berth",
+          "required": false
+        },
+        {
+          "id": "endBerth",
+          "traitRef": "maritime/berth",
+          "required": false
+        },
+        {
+          "id": "timestamp",
+          "traitRef": "datetime",
+          "required": true
+        },
+        {
+          "id": "vessel",
+          "traitRef": "maritime/vessel",
+          "required": true
+        },
+        {
+          "id": "cargo",
+          "traitRef": "string",
+          "required": true
+        },
+        {
+          "id": "value",
+          "traitRef": "float",
+          "required": true
+        },
+        {
+          "id": "quatity",
+          "traitRef": "float",
+          "required": true
+        }
+      ]
+    },
+    {
+      "_type": "definition",
+      "desc": "Voyage AIS",
+      "fqn": "maritime/voyage_ais",
+      "properties": [
+        {
+          "id": "legs",
+          "traitRef": "variable_array",
+          "required": true
+        }
+      ]
+    }
+  ],
+    "physicalModels": [
+    {
+      "repositoryName": "port_0",
+      "description": "ports sample data ",
+      "models": [
+        {
+          "type": "single",
+          "model": {
+            "logicalModel": "maritime/port",
+            "name": "Port",
+            "approvalRequired": false,
+            "approvalGroups": [],
+            "idProperties": [
+              "source.name"
+            ],
+            "autoCompleteFields": [
+              "name",
+              "locode"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "repositoryName": "vessel_0",
+      "description": "vessels data ",
+      "models": [
+        {
+          "type": "single",
+          "model": {
+            "logicalModel": "maritime/vessel",
+            "name": "Vessel",
+            "approvalRequired": false,
+            "approvalGroups": [],
+            "idProperties": [
+              "source.id"
+            ],
+            "autoCompleteFields": [
+              "id"
+            ]
+          }
+        }
+      ]
+    }    
+  ],
+  "logicalRepositories": [
+    {
+      "proxyName": "Port",
+      "typeUrns": [
+        "port_0:*"
+      ],
+      "filter": "Live"
+    },
+    {
+      "proxyName": "Vessel",
+      "typeUrns": [
+        "vessel_0:*"
+      ],
+      "filter": "Live"
+    }    
+  ]
+}
+	
